@@ -52,16 +52,20 @@
       padding: 0;
       flex-wrap: wrap;
     }
+    nav li { list-style: none; }
     nav a {
       color: var(--text);
       text-decoration: none;
       font-weight: 500;
-      padding: 0.35rem 0.75rem;
+      padding: 0.35rem 0.9rem;
       border-radius: 999px;
-      border: 1px solid transparent;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.04);
+      transition: border-color 0.2s ease, color 0.2s ease;
     }
-    nav a:hover { border-color: rgba(255,255,255,0.2); color: var(--accent); }
-    .brand { font-weight: 600; letter-spacing: 0.08em; color: var(--accent); }
+    nav a:hover,
+    nav a:focus-visible { border-color: rgba(93,253,203,0.6); color: var(--accent-secondary); }
+    .brand { font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
     h1 { margin: 0 0 0.5rem; font-size: clamp(2.4rem, 4vw, 3.2rem); }
     p.lede { color: var(--muted); max-width: 640px; line-height: 1.6; }
     .posts {
