@@ -4,71 +4,72 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kill the 404s: Hosting a Project Site on GitHub Pages | Lukas Rook Blog</title>
-  <meta name="description" content="Day 002 log: debugging GitHub Pages 404s by using the correct base path and fixing all internal links." />
+  <meta name="description" content="Day 001 entry 2: debugging GitHub Pages 404s by respecting the repo base path and fixing internal links." />
   <link rel="canonical" href="https://lukasrook.github.io/lukasrook-site/blog/kill-the-404s-github-pages.html" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: '#5dfdcb',
+            brandMuted: '#0f1728',
+            textPrimary: '#f4f6ff',
+            textMuted: '#99a4cb'
+          },
+          fontFamily: {
+            grotesk: ['Space Grotesk', 'system-ui']
+          }
+        }
+      }
+    }
+  </script>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root { color-scheme: dark; --bg: #05060b; --card: #0f1728; --accent: #5dfdcb; --text: #f4f6ff; --muted: #99a4cb; }
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: 'Space Grotesk', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: radial-gradient(circle at top, rgba(93,253,203,0.08), transparent 45%), var(--bg); color: var(--text); display: flex; justify-content: center; padding: 1.5rem; }
-    main { width: min(860px, 100%); background: var(--card); border-radius: 26px; padding: clamp(2rem, 4vw, 3.2rem); box-shadow: 0 20px 60px rgba(0,0,0,0.45); border: 1px solid rgba(93,253,203,0.15); }
-    .site-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
-    .site-nav__links { list-style: none; display: flex; gap: 1rem; margin: 0; padding: 0; flex-wrap: wrap; }
-    .site-nav__links li { list-style: none; }
-    .site-nav__links a { color: var(--text); text-decoration: none; font-weight: 500; padding: 0.35rem 0.9rem; border-radius: 999px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.04); transition: border-color 0.2s ease, color 0.2s ease; }
-    .site-nav__links a:hover, .site-nav__links a:focus-visible { border-color: rgba(93,253,203,0.6); color: var(--accent-secondary); }
-    .meta { text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.85rem; color: var(--muted); }
-    h1 { margin: 0.4rem 0 1rem; font-size: clamp(2.2rem, 4vw, 3rem); }
-    article p { line-height: 1.7; color: #dbe2ff; }
-    article ol { padding-left: 1.2rem; line-height: 1.7; }
-    article code { background: rgba(255,255,255,0.08); padding: 0.1rem 0.3rem; border-radius: 6px; font-size: 0.95em; }
-    .site-nav__brand { font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
-    footer { margin-top: 3rem; text-align: center; color: var(--muted); font-size: 0.95rem; }
-    @media (max-width: 640px) { body { padding: 1rem; } nav { justify-content: center; } h1, .meta { text-align: center; } }
-  </style>
 </head>
-<body>
-  <main>
-    <nav class="site-nav">
-      <div class="site-nav__brand">LUKAS ROOK</div>
-      <ul class="site-nav__links">
-        <li><a href="/lukasrook-site/">Home</a></li>
-        <li><a href="/lukasrook-site/blog/">Blog</a></li>
-      </ul>
+<body class="min-h-screen bg-[#05060b] font-grotesk text-textPrimary flex justify-center p-4 sm:p-6">
+  <main class="w-full max-w-3xl bg-brandMuted/90 border border-brand/20 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.45)] p-6 sm:p-10 space-y-8">
+    <nav class="flex flex-wrap items-center justify-between gap-4 text-sm uppercase tracking-[0.2em]">
+      <span class="text-brand font-semibold">LUKAS ROOK</span>
+      <div class="flex gap-3 text-base normal-case tracking-normal">
+        <a href="/lukasrook-site/" class="px-4 py-2 rounded-full border border-white/20 bg-white/10 hover:border-brand transition">Home</a>
+        <a href="/lukasrook-site/blog/" class="px-4 py-2 rounded-full border border-white/20 bg-white/10 hover:border-brand transition">Blog</a>
+      </div>
     </nav>
 
-    <article>
-      <div class="meta">Feb 19, 2026 · Day 001 · Entry 2</div>
-      <h1>Kill the 404s: Hosting a Project Site on GitHub Pages</h1>
-      <p>Today’s lesson: GitHub Pages project sites live under <code>/repo-name/</code>. If your links assume the root domain, you’ll get a face full of 404s—especially on mobile.</p>
+    <article class="space-y-6">
+      <div class="space-y-2">
+        <div class="text-xs uppercase tracking-[0.3em] text-textMuted">Feb 19, 2026 · Day 001 · Entry 2</div>
+        <h1 class="text-4xl font-semibold">Kill the 404s: Hosting a Project Site on GitHub Pages</h1>
+      </div>
 
-      <h2>The bug</h2>
-      <p>I launched a home page at <code>lukasrook.github.io/lukasrook-site/</code> and added a blog overview under <code>/blog/</code>. On desktop it worked (because I was testing locally), but on production every link to <code>/blog/...</code> pointed to <code>https://lukasrook.github.io/blog/</code> which doesn’t exist. Classic mismatch between local paths and the Pages base URL.</p>
+      <section class="space-y-4 text-lg text-textMuted leading-relaxed">
+        <p>Today’s lesson: GitHub Pages project sites live under <code class="bg-white/10 px-2 py-0.5 rounded">/repo-name/</code>. If your links assume the root domain, you’ll ship 404s—especially on mobile.</p>
 
-      <h2>The fix</h2>
-      <ol>
-        <li>Confirmed the real URLs: <code>https://lukasrook.github.io/lukasrook-site/blog/</code> and <code>.../blog/day-001.html</code>.</li>
-        <li>Replaced every hard-coded <code>/blog/…</code> reference with <code>/lukasrook-site/blog/…</code> (nav, buttons, footer, cards).</li>
-        <li>Committed &amp; pushed so GitHub Pages rebuilt. A quick <code>curl -I</code> confirmed HTTP 200 for the new URLs.</li>
-        <li>Hard-refresh on mobile to flush the cached 404 page.</li>
-      </ol>
+        <div class="space-y-2">
+          <h2 class="text-2xl text-textPrimary font-semibold">The bug</h2>
+          <p>I launched a home page at <code class="bg-white/10 px-2 py-0.5 rounded">lukasrook.github.io/lukasrook-site/</code> and added a blog overview under <code>/blog/</code>. On production every link pointed to <code>https://lukasrook.github.io/blog/</code> which doesn’t exist.</p>
+        </div>
 
-      <h2>Takeaway</h2>
-      <p>If you deploy a project site on GitHub Pages, either:</p>
-      <ul>
-        <li>Reference assets with the <code>{{ site.baseurl }}</code> variable (if you’re using Jekyll), or</li>
-        <li>Manually prefix every internal link with <code>/repo-name/</code> to match the hosted path.</li>
-      </ul>
-      <p>Skip that step and your visitors will bounce from a dead page.</p>
+        <div class="space-y-2">
+          <h2 class="text-2xl text-textPrimary font-semibold">The fix</h2>
+          <ol class="list-decimal pl-6 space-y-1">
+            <li>Confirmed the real URLs: <code class="bg-white/10 px-2 py-0.5 rounded">https://lukasrook.github.io/lukasrook-site/blog/</code> etc.</li>
+            <li>Replaced every hard-coded <code class="bg-white/10 px-2 py-0.5 rounded">/blog/…</code> reference with <code class="bg-white/10 px-2 py-0.5 rounded">/lukasrook-site/blog/…</code>.</li>
+            <li>Committed & pushed so GitHub Pages rebuilt; verified with <code class="bg-white/10 px-2 py-0.5 rounded">curl -I</code>.</li>
+            <li>Hard-refreshed mobile Safari to clear the cached 404.</li>
+          </ol>
+        </div>
 
-      <p>Tomorrow I’ll ship Day 003 with more behind-the-scenes on building outbound systems and polishing the site.</p>
+        <div class="space-y-2">
+          <h2 class="text-2xl text-textPrimary font-semibold">Takeaway</h2>
+          <p>If you deploy a project site on GitHub Pages, either reference assets with the baseurl variable or manually prefix every internal link with the repo slug. Skip that step and visitors will bounce from a dead page.</p>
+        </div>
+
+        <p class="font-semibold text-textPrimary">Tomorrow I’ll ship the next entry with more behind-the-scenes on outbound systems and polish.</p>
+      </section>
     </article>
 
-    <footer>
-      Crafted by Lukas Rook · <a href="/lukasrook-site/blog/">Back to blog</a>
-    </footer>
+    <footer class="text-center text-sm text-textMuted">Crafted by Lukas Rook · <a href="/lukasrook-site/blog/" class="text-brand hover:underline">Back to blog</a></footer>
   </main>
 </body>
 </html>
