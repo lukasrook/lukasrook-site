@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 002 — GitHub Pages 404 Fix | Lukas Rook Blog</title>
+  <meta name="description" content="Day 002 log: debugging GitHub Pages 404s by using the correct base path for project sites and updating navigation links." />
+  <link rel="canonical" href="https://lukasrook.github.io/lukasrook-site/blog/day-002.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: dark; --bg: #05060b; --card: #0f1728; --accent: #5dfdcb; --text: #f4f6ff; --muted: #99a4cb; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Space Grotesk', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: radial-gradient(circle at top, rgba(93,253,203,0.08), transparent 45%), var(--bg); color: var(--text); display: flex; justify-content: center; padding: 1.5rem; }
+    main { width: min(860px, 100%); background: var(--card); border-radius: 26px; padding: clamp(2rem, 4vw, 3.2rem); box-shadow: 0 20px 60px rgba(0,0,0,0.45); border: 1px solid rgba(93,253,203,0.15); }
+    nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+    nav a { color: var(--text); text-decoration: none; font-weight: 500; padding: 0.35rem 0.75rem; border-radius: 999px; border: 1px solid transparent; }
+    nav a:hover { border-color: rgba(255,255,255,0.2); color: var(--accent); }
+    .meta { text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.85rem; color: var(--muted); }
+    h1 { margin: 0.4rem 0 1rem; font-size: clamp(2.2rem, 4vw, 3rem); }
+    article p { line-height: 1.7; color: #dbe2ff; }
+    article ol { padding-left: 1.2rem; line-height: 1.7; }
+    article code { background: rgba(255,255,255,0.08); padding: 0.1rem 0.3rem; border-radius: 6px; font-size: 0.95em; }
+    footer { margin-top: 3rem; text-align: center; color: var(--muted); font-size: 0.95rem; }
+    @media (max-width: 640px) { body { padding: 1rem; } nav { justify-content: center; } h1, .meta { text-align: center; } }
+  </style>
+</head>
+<body>
+  <main>
+    <nav>
+      <a href="/lukasrook-site/">← Home</a>
+      <a href="/lukasrook-site/blog/">Blog</a>
+    </nav>
+
+    <article>
+      <div class="meta">Feb 19, 2026 · Day 002</div>
+      <h1>Kill the 404s: Hosting a Project Site on GitHub Pages</h1>
+      <p>Today’s lesson: GitHub Pages project sites live under <code>/repo-name/</code>. If your links assume the root domain, you’ll get a face full of 404s—especially on mobile.</p>
+
+      <h2>The bug</h2>
+      <p>I launched a home page at <code>lukasrook.github.io/lukasrook-site/</code> and added a blog overview under <code>/blog/</code>. On desktop it worked (because I was testing locally), but on production every link to <code>/blog/...</code> pointed to <code>https://lukasrook.github.io/blog/</code> which doesn’t exist. Classic mismatch between local paths and the Pages base URL.</p>
+
+      <h2>The fix</h2>
+      <ol>
+        <li>Confirmed the real URLs: <code>https://lukasrook.github.io/lukasrook-site/blog/</code> and <code>.../blog/day-001.html</code>.</li>
+        <li>Replaced every hard-coded <code>/blog/…</code> reference with <code>/lukasrook-site/blog/…</code> (nav, buttons, footer, cards).</li>
+        <li>Committed &amp; pushed so GitHub Pages rebuilt. A quick <code>curl -I</code> confirmed HTTP 200 for the new URLs.</li>
+        <li>Hard-refresh on mobile to flush the cached 404 page.</li>
+      </ol>
+
+      <h2>Takeaway</h2>
+      <p>If you deploy a project site on GitHub Pages, either:</p>
+      <ul>
+        <li>Reference assets with the <code>{{ site.baseurl }}</code> variable (if you’re using Jekyll), or</li>
+        <li>Manually prefix every internal link with <code>/repo-name/</code> to match the hosted path.</li>
+      </ul>
+      <p>Skip that step and your visitors will bounce from a dead page.</p>
+
+      <p>Tomorrow I’ll ship Day 003 with more behind-the-scenes on building outbound systems and polishing the site.</p>
+    </article>
+
+    <footer>
+      Crafted by Lukas Rook · <a href="/lukasrook-site/blog/">Back to blog</a>
+    </footer>
+  </main>
+</body>
+</html>
