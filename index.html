@@ -39,7 +39,7 @@
       box-shadow: 0 20px 60px rgba(0,0,0,0.45);
       border: 1px solid rgba(93,253,203,0.2);
     }
-    nav {
+    .site-nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -47,13 +47,13 @@
       flex-wrap: wrap;
       gap: 1rem;
     }
-    nav .brand {
+    .site-nav__brand {
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--accent);
     }
-    nav ul {
+    .site-nav__links {
       list-style: none;
       display: flex;
       gap: 1rem;
@@ -61,7 +61,8 @@
       padding: 0;
       flex-wrap: wrap;
     }
-    nav a {
+    .site-nav__links li { list-style: none; }
+    .site-nav__links a {
       color: var(--text);
       text-decoration: none;
       font-weight: 500;
@@ -71,8 +72,8 @@
       background: rgba(255,255,255,0.04);
       transition: border-color 0.2s ease, color 0.2s ease;
     }
-    nav a:hover,
-    nav a:focus-visible {
+    .site-nav__links a:hover,
+    .site-nav__links a:focus-visible {
       border-color: rgba(93,253,203,0.6);
       color: var(--accent-secondary);
     }
@@ -183,9 +184,9 @@
 </head>
 <body>
   <main>
-    <nav>
-      <div class="brand">LUKAS ROOK</div>
-      <ul>
+    <nav class="site-nav">
+      <div class="site-nav__brand">LUKAS ROOK</div>
+      <ul class="site-nav__links">
         <li><a href="/lukasrook-site/">Home</a></li>
         <li><a href="/lukasrook-site/blog/">Blog</a></li>
       </ul>

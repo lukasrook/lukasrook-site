@@ -29,25 +29,26 @@
       box-shadow: 0 20px 60px rgba(0,0,0,0.45);
       border: 1px solid rgba(93,253,203,0.15);
     }
-    nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
-    nav ul { list-style: none; display: flex; gap: 1rem; margin: 0; padding: 0; flex-wrap: wrap; }
-    nav a { color: var(--text); text-decoration: none; font-weight: 500; padding: 0.35rem 0.9rem; border-radius: 999px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.04); transition: border-color 0.2s ease, color 0.2s ease; }
-    nav a:hover, nav a:focus-visible { border-color: rgba(93,253,203,0.6); color: var(--accent-secondary); }
+    .site-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+    .site-nav__links { list-style: none; display: flex; gap: 1rem; margin: 0; padding: 0; flex-wrap: wrap; }
+    .site-nav__links li { list-style: none; }
+    .site-nav__links a { color: var(--text); text-decoration: none; font-weight: 500; padding: 0.35rem 0.9rem; border-radius: 999px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.04); transition: border-color 0.2s ease, color 0.2s ease; }
+    .site-nav__links a:hover, .site-nav__links a:focus-visible { border-color: rgba(93,253,203,0.6); color: var(--accent-secondary); }
     .meta { text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.85rem; color: var(--muted); }
     h1 { margin: 0.4rem 0 1rem; font-size: clamp(2.2rem, 4vw, 3rem); }
     article p { line-height: 1.7; color: #dbe2ff; }
     article ul { padding-left: 1.2rem; line-height: 1.7; }
     article strong { color: var(--accent); }
-    .brand { font-weight: 600; letter-spacing: 0.08em; color: var(--accent); }
+    .site-nav__brand { font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
     footer { margin-top: 3rem; text-align: center; color: var(--muted); font-size: 0.95rem; }
     @media (max-width: 640px) { body { padding: 1rem; } nav { justify-content: center; } h1 { text-align: center; } .meta { text-align: center; } }
   </style>
 </head>
 <body>
   <main>
-    <nav>
-      <div class="brand">LUKAS ROOK</div>
-      <ul>
+    <nav class="site-nav">
+      <div class="site-nav__brand">LUKAS ROOK</div>
+      <ul class="site-nav__links">
         <li><a href="/lukasrook-site/">Home</a></li>
         <li><a href="/lukasrook-site/blog/">Blog</a></li>
       </ul>
