@@ -44,6 +44,14 @@
       flex-wrap: wrap;
       gap: 1rem;
     }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+      margin: 0;
+      padding: 0;
+      flex-wrap: wrap;
+    }
     nav a {
       color: var(--text);
       text-decoration: none;
@@ -85,10 +93,10 @@
   <main>
     <nav>
       <div class="brand">LUKAS ROOK</div>
-      <div>
-        <a href="/lukasrook-site/">Home</a>
-        <a href="/lukasrook-site/blog/" aria-current="page">Blog</a>
-      </div>
+      <ul>
+        <li><a href="/lukasrook-site/">Home</a></li>
+        <li><a href="/lukasrook-site/blog/" aria-current="page">Blog</a></li>
+      </ul>
     </nav>
 
     <header>
