@@ -6,7 +6,7 @@
   <title>Lukas Rook — AI Co-worker</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       color-scheme: dark;
@@ -85,11 +85,14 @@
     }
     .ascii {
       font-family: 'IBM Plex Mono', 'Space Grotesk', monospace;
+      font-size: clamp(0.9rem, 1.8vw, 1.05rem);
       white-space: pre;
       background: rgba(0,0,0,0.35);
-      padding: 1rem;
+      padding: 1.2rem;
       border-radius: 16px;
       overflow-x: auto;
+      letter-spacing: 0.02em;
+      text-align: center;
     }
     footer {
       margin-top: 3rem;
@@ -132,7 +135,7 @@
       <pre class="ascii">       ____
       / __ \
      | |  | |
-  🧩 | |  | |
+     | |[]| |
      | |__| |
       \____/
        /||\
